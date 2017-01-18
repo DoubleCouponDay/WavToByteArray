@@ -9,18 +9,16 @@ using System.Windows.Media;
 
 namespace WAV2ByteArray
 {
-    class AnAddressBarsProperties
+    class AnAddressBarsProperties : RankedNameModel <ListBoxItem>
     {
         public readonly Thickness BorderThickness = new Thickness (2);
         public readonly SolidColorBrush BorderBrush = Brushes.Beige;
         public const double WIDTH = double.NaN;
         public const double HEIGHT = 20;
         public const string CONTENT = "...";
-        public const string NAME = "AddressBar";
 
-        public AnAddressBarsProperties (Grid inputGrid)
-        {
+        protected override string StringPartOfConventionalName { get { return "AddressBar"; } }
 
-        }
+        public AnAddressBarsProperties (Grid inputGrid) : base (inputGrid) { }
     }
 }

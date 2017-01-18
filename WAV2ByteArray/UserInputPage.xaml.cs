@@ -16,6 +16,7 @@ namespace WAV2ByteArray
 {
     public partial class UserInputPage : Page
     {
+        private const int MIN_ADDRESS_BARS = 1;
         private const int MAX_ADDRESS_BARS = 20;        
 
         private AFindButtonsProperties buttonProperties;
@@ -92,8 +93,19 @@ namespace WAV2ByteArray
 
         private void ClickRemoveBar (object sender, RoutedEventArgs e)
         {
-            int notNeeded;
-            Button lastBarButton = barProperties.GetReferenceLastRankedButton (out notNeeded);
+            if (FilesList.Items.Count > MIN_ADDRESS_BARS)
+            {
+                int notNeeded;
+                ListBoxItem lastAddressBar = barProperties.GetReferenceLastRankedItem <ListBoxItem> (out notNeeded);
+                Button lastBarButton = barProperties.GetReferenceLastRankedItem <Button> (out notNeeded);
+                UserInputGrid.Children.Remove (lastAddressBar);
+                UserInputGrid.Children.Remove (lastBarButton);
+            }
+
+            else
+            {
+                MessageBox.Show (ErrorMessages.MIN_ITEMS);
+            }
         }      
 
         private void ClickConvert (object sender, RoutedEventArgs e)
