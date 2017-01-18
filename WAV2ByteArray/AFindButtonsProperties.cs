@@ -19,51 +19,47 @@ namespace WAV2ByteArray
         public const int COLUMN = 1;
         public const double WIDTH = 30;
         public const double HEIGHT = 20;
-        public const double MARGIN_INCREMENT = 22;
+        public const double MARGIN_INCREMENT = 20;
         public const string CONTENT = "...";
         public const string NAME = "FindAddressButton";
 
         public readonly VerticalAlignment verticalAlignment = VerticalAlignment.Top;
         public readonly HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left;
-        public readonly ICommand ButtonsAction;
 
-        private Grid gridReference;
-
+        protected Grid gridReference;
         private Button buttonReference;
-        public Button ReferenceButton
-        {
-            get { return buttonReference; }
-        }
 
-
-        /// <summary>
-        /// Grid must contain a button which follows the naming convention "string_int".
-        /// If not, class with throw ViewElementNotFoundException.
-        /// </summary>
-        /// <param name="inputGrid"></param>
-        /// <param name=""></param>
         public AFindButtonsProperties (Grid inputGrid)
         {
-            gridReference = inputGrid;
-            buttonReference = GetReferenceLastRankedButton();
-            ButtonsAction = buttonReference.Command;
+
         }
 
-        private Button GetReferenceLastRankedButton()
+        /// <summary>
+        /// Must contain a valid named view element. 
+        /// If its not, method will throw ViewElementNotFoundException.
+        /// </summary>
+        /// <param name="elementName"></param>
+        /// <param name="lastRank"></param>
+        /// <returns></returns>
+        public Button GetReferenceLastRankedItem (out int lastRank)
         {
             Button outputButton = null;
-            int lastRank = 0;
+            int lastRankConstruction = 0;
 
-            foreach (Button currentButton in gridReference.Children)
+            List <T> elementQuery = (from element in gridReference.Children.OfType <T>() select element).ToList();
+
+            foreach (var item in elementQuery)
+
+            if (currentButton != null) //skips elements that arent buttons
             {
                 string[] choppedUp = currentButton.Name.ToString().Split ('_');
-
+                    
                 if (choppedUp.Length > 1 && //prevents exception for names not following the FindButton convention.
-                    choppedUp[0].Contains (NAME))
+                    choppedUp[0] == Name)
                 {
                     int numberIsolated = Convert.ToInt16 (choppedUp[1]);
 
-                    if (numberIsolated > lastRank)
+                    if (numberIsolated > lastRankConstruction)
                     {
                         outputButton = currentButton;
                         lastRank = numberIsolated;
@@ -78,6 +74,7 @@ namespace WAV2ByteArray
 
             else
             {
+                lastRank = lastRankConstruction;
                 return outputButton;
             }
         }
@@ -88,12 +85,22 @@ namespace WAV2ByteArray
         /// <returns></returns>
         public Thickness GetCopyLastButtonsMargin()
         {
-                buttonReference = GetReferenceLastRankedButton();
-                return new Thickness (buttonReference.Margin.Left,
-                                      buttonReference.Margin.Top,
-                                      buttonReference.Margin.Right,
-                                      buttonReference.Margin.Bottom
-                                     );
+            int notNeeded;
+            Button lastButton = GetReferenceLastRankedButton (out notNeeded);
+            return new Thickness (lastButton.Margin.Left,
+                                  lastButton.Margin.Top,
+                                  lastButton.Margin.Right,
+                                  lastButton.Margin.Bottom
+                                 );
+        }
+
+        public string GetLatestRankedName()
+        {
+            int lastRank;
+            Button lastButton = GetReferenceLastRankedButton (out lastRank);
+            lastRank++;
+            string name = Name + "_" + lastRank.ToString();
+            return name;
         }
     }
 }

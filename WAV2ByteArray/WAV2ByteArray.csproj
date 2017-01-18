@@ -57,6 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="AFindButtonsProperties.cs" />
     <Compile Include="AnAddressBarsProperties.cs" />
+    <Compile Include="ButtonNamingIndex.cs" />
+    <Compile Include="ByteFactory.cs" />
     <Compile Include="UserInputPage.xaml.cs">
       <DependentUpon>UserInputPage.xaml</DependentUpon>
     </Compile>

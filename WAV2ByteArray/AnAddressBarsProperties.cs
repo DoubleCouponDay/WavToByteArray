@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace WAV2ByteArray
@@ -15,7 +16,11 @@ namespace WAV2ByteArray
         public const double WIDTH = double.NaN;
         public const double HEIGHT = 20;
         public const string CONTENT = "...";
+        public const string NAME = "AddressBar";
 
-        public AnAddressBarsProperties() { };
+        public AnAddressBarsProperties (Grid inputGrid)
+        {
+
+        }
     }
 }

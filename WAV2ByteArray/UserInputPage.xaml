@@ -26,7 +26,7 @@
             <ListBoxItem Name="AddressBar_1" BorderBrush="Beige" BorderThickness="2" Width="Auto" Height="20">...</ListBoxItem>
         </ListBox>
         
-        <Button Name="FindAddressButton_1" Grid.Row="0" Grid.Column="1" Margin="5,35,0,0" Width="30" Height="20" VerticalAlignment="Top" HorizontalAlignment="left" Click="ClickFindAddress">...</Button>
+        <Button Name="FindAddressButton_1" Grid.Row="0" Grid.Column="1" Margin="5,37,0,0" Width="30" Height="20" VerticalAlignment="Top" HorizontalAlignment="left" Click="ClickFindAddress">...</Button>
         <Button Name="NewFileButton" Grid.Row="1" Margin="10,6,0,0" Width="Auto" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ClickNewBar">New Item</Button>
         <Button Name="RemoveFileButton" Grid.Row="1" Margin="79,6,0,0" Width="Auto" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ClickRemoveBar">Remove Last Item</Button>
         <Button Grid.Column="1" Margin="0,0,-53,0" Width="Auto" Height="30" VerticalAlignment="Top" Click="ClickConvert">Convert</Button>

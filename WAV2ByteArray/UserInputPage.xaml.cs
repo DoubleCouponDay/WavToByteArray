@@ -16,11 +16,12 @@ namespace WAV2ByteArray
 {
     public partial class UserInputPage : Page
     {
-        private const int MAX_ADDRESS_BARS = 20;
-        
+        private const int MAX_ADDRESS_BARS = 20;        
 
         private AFindButtonsProperties buttonProperties;
         private AnAddressBarsProperties barProperties;
+
+        private ByteFactory output = new ByteFactory();
 
         private struct ErrorMessages
         {
@@ -35,7 +36,7 @@ namespace WAV2ByteArray
         {
             InitializeComponent();
             buttonProperties = new AFindButtonsProperties (UserInputGrid);
-            barProperties = new AnAddressBarsProperties();
+            barProperties = new AnAddressBarsProperties (UserInputGrid);
         }
 
         private void ClickFindAddress (object sender, RoutedEventArgs e)
@@ -62,16 +63,16 @@ namespace WAV2ByteArray
             ListBoxItem newAddressBar = new ListBoxItem();
             newAddressBar.BorderBrush = barProperties.BorderBrush;
             newAddressBar.BorderThickness = barProperties.BorderThickness;
+            newAddressBar.Name = barProperties.GetLatestRankedName();
             newAddressBar.Width = AnAddressBarsProperties.WIDTH;
             newAddressBar.Height = AnAddressBarsProperties.HEIGHT;
-            newAddressBar.Content = AnAddressBarsProperties.CONTENT;
+            newAddressBar.Content = AnAddressBarsProperties.CONTENT;            
             FilesList.Items.Add (newAddressBar);
         }
 
         private void CreateFindButton()
         {
             Button newAddressButton = new Button();
-            newAddressButton.Command = buttonProperties.ButtonsAction;
             newAddressButton.VerticalAlignment = buttonProperties.verticalAlignment;
             newAddressButton.HorizontalAlignment = buttonProperties.horizontalAlignment;
             newAddressButton.Width = AFindButtonsProperties.WIDTH;
@@ -82,14 +83,17 @@ namespace WAV2ByteArray
             Thickness marginConstruction = buttonProperties.GetCopyLastButtonsMargin();
             marginConstruction.Top += AFindButtonsProperties.MARGIN_INCREMENT;
             newAddressButton.Margin = marginConstruction;
-            newAddressButton.Margin.Top = newAddressButton.Margin.Top + AFindButtonsProperties.
-            newAddressButton.Content = FindButtonProperties.CONTENT;
+
+            newAddressButton.Name = buttonProperties.GetLatestRankedName();
+            newAddressButton.Content = AFindButtonsProperties.CONTENT;
+            newAddressButton.Click += ClickFindAddress;       
             UserInputGrid.Children.Add (newAddressButton);
         }
 
         private void ClickRemoveBar (object sender, RoutedEventArgs e)
         {
-
+            int notNeeded;
+            Button lastBarButton = barProperties.GetReferenceLastRankedButton (out notNeeded);
         }      
 
         private void ClickConvert (object sender, RoutedEventArgs e)
@@ -98,7 +102,7 @@ namespace WAV2ByteArray
 
             if (firstBar != null) //conversion check
             {
-                if (firstBar.Content.ToString() != AddressBarProperties.CONTENT)
+                if (firstBar.Content.ToString() != AnAddressBarsProperties.CONTENT)
                 {
 
                 }
