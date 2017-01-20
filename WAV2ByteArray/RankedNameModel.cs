@@ -19,7 +19,7 @@ namespace WAV2ByteArray
         {
             gridReference = inputGrid;
             int notNeeded;
-            elementReference = GetReferenceLastRankedItem <T> (out notNeeded, null);
+            elementReference = GetReferenceLastRankedItem <T> (out notNeeded);
         }
 
         /// <summary>
@@ -28,14 +28,13 @@ namespace WAV2ByteArray
         /// <typeparam name="T"></typeparam>
         /// <param name="lastRank"></param>
         /// <returns>The object reference of type specified.</returns>
-        public T GetReferenceLastRankedItem <T> (out int lastRank, T optionalContainer)
+        public T1 GetReferenceLastRankedItem <T1, T2> (out int lastRank)
         {
             T outputObject = default (T);
             lastRank = -1;
-            IEnumerable <T> elementQuery = from element in gridReference.Children.Cast <T>()
-                                           where element.GetType() == typeof (T)
-                                           select element;
-
+            IEnumerable <object> elementQuery = from superItems in gridReference.Children
+                                                from subItems in gridReference.Children.
+                                           
             foreach (T element in elementQuery)
             {
                 FrameworkElement castToCommon = element as FrameworkElement;
@@ -79,7 +78,7 @@ namespace WAV2ByteArray
         public string GetLatestRankedName()
         {
             int lastRank;
-            Button lastButton = GetReferenceLastRankedItem <Button> (out lastRank, null);
+            Button lastButton = GetReferenceLastRankedItem <Button> (out lastRank);
             lastRank++;
             string name = StringPartOfConventionalName + "_" + lastRank.ToString();
             return name;
