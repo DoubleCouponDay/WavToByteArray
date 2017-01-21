@@ -34,27 +34,31 @@ namespace WAV2ByteArray
         public T GetReferenceLastRankedItem()
         {
             T outputObject = default (T);
-            lastRankedItem = -1;                  
-
-            foreach (var anyItem in gridReference.Children)
-            {
-                var enumerableCheck = anyItem as ListBox; 
-                T methodsReturn = default (T);
-
-                if (enumerableCheck != null)
+            lastRankedItem = -1;       
+           
+            IEnumerable <T> genericQuery = (from element1 in gridReference.Children.OfType <ListBox>()
+                                            from boxItem in element1.Items.OfType <T>()
+                                            select boxItem)
+                                            
+                                            .Concat (from element2 in gridReference.Children.OfType <T>()
+                                            select element2);                                           
+                        
+            foreach (var match in genericQuery)
+            {            
+                string[] choppedUp = match.Name.ToString().Split ('_');
+                int parseResult;
+                    
+                if (choppedUp.Length == 2 && //not all type T elements will have a conventional name.
+                    choppedUp[0] == StringPartOfConventionalName && //different types of the same element type will have a different ranking.
+                    int.TryParse (choppedUp[1], out parseResult))
                 {
-                    foreach (var collectionItem in enumerableCheck.Items)
+                    if (parseResult > lastRankedItem)
                     {
-                        methodsReturn = CheckItemIsLastRanked (collectionItem);
+                        outputObject = match;
+                        lastRankedItem = parseResult;
                     }
-                } 
-
-                else
-                {                    
-                    methodsReturn = CheckItemIsLastRanked (anyItem);
                 }
-                outputObject = (methodsReturn != default (T)) ? methodsReturn : outputObject;
-            }
+            }     
 
             if (outputObject == null)
             {
@@ -89,19 +93,7 @@ namespace WAV2ByteArray
 
             if (castToInputType != null)
             {
-                string[] choppedUp = castToInputType.Name.ToString().Split ('_');
-                int parseResult;
-                    
-                if (choppedUp.Length == 2 && //not all type T elements will have a conventional name.
-                    choppedUp[0] == StringPartOfConventionalName && //different types of the same element type will have a different ranking.
-                    int.TryParse (choppedUp[1], out parseResult))
-                {
-                    if (parseResult > lastRankedItem)
-                    {
-                        outputObject = castToInputType;
-                        lastRankedItem = parseResult;
-                    }
-                }
+                
             }
             return outputObject;
         }

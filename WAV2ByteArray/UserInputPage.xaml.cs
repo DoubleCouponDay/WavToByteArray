@@ -38,7 +38,7 @@ namespace WAV2ByteArray
         public UserInputPage()
         {
             InitializeComponent();
-            buttonProperties = new AFindButtonsProperties (UserInputGrid);
+            //buttonProperties = new AFindButtonsProperties (UserInputGrid);
             barProperties = new AnAddressBarsProperties (UserInputGrid);
         }
 
