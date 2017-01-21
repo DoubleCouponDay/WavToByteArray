@@ -13,7 +13,7 @@ namespace WAV2ByteArray
     /// A Grouping of properties for a FindAddress button.
     /// Must be passed reference of the UserInputGrid because im lazy and dont want to learn dynamic elements yet ;)
     /// </summary>
-    class AFindButtonsProperties : RankedNameModel <Button>
+    public class AFindButtonsProperties : RankedNameModel <Button>
     {
         public const int ROW = 0;
         public const int COLUMN = 1;
@@ -25,14 +25,13 @@ namespace WAV2ByteArray
         public readonly VerticalAlignment verticalAlignment = VerticalAlignment.Top;
         public readonly HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left;
 
-        protected override string StringPartOfConventionalName { get { return "FindAddressButton"; } }
+        public override string StringPartOfConventionalName { get { return "FindAddressButton"; } }
 
         public AFindButtonsProperties (Grid inputGrid) : base (inputGrid) { }
 
         public Thickness GetCopyLastButtonsMargin()
         {
-            int notNeeded;
-            Button lastButton = GetReferenceLastRankedItem <Button> (out notNeeded);
+            Button lastButton = GetReferenceLastRankedItem();
             return new Thickness (lastButton.Margin.Left,
                                   lastButton.Margin.Top,
                                   lastButton.Margin.Right,

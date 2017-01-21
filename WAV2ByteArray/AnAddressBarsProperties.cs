@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace WAV2ByteArray
 {
-    class AnAddressBarsProperties : RankedNameModel <ListBoxItem>
+    public class AnAddressBarsProperties : RankedNameModel <ListBoxItem>
     {
         public readonly Thickness BorderThickness = new Thickness (2);
         public readonly SolidColorBrush BorderBrush = Brushes.Beige;
@@ -17,7 +17,7 @@ namespace WAV2ByteArray
         public const double HEIGHT = 20;
         public const string CONTENT = "...";
 
-        protected override string StringPartOfConventionalName { get { return "AddressBar"; } }
+        public override string StringPartOfConventionalName { get { return "AddressBar"; } }
 
         public AnAddressBarsProperties (Grid inputGrid) : base (inputGrid) { }
     }

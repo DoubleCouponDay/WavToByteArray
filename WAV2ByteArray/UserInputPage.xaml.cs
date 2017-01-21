@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace WAV2ByteArray
         private AnAddressBarsProperties barProperties;
 
         private ByteFactory output = new ByteFactory();
+        public ObservableCollection <AnAddressBarsProperties> addressBars = new ObservableCollection <AnAddressBarsProperties>();
 
         private struct ErrorMessages
         {
@@ -95,10 +97,9 @@ namespace WAV2ByteArray
         {
             if (FilesList.Items.Count > MIN_ADDRESS_BARS)
             {
-                int notNeeded;
-                ListBoxItem lastAddressBar = barProperties.GetReferenceLastRankedItem <ListBoxItem> (out notNeeded);
-                Button lastBarButton = barProperties.GetReferenceLastRankedItem <Button> (out notNeeded);
-                UserInputGrid.Children.Remove (lastAddressBar);
+                ListBoxItem lastAddressBar = barProperties.GetReferenceLastRankedItem();
+                Button lastBarButton = buttonProperties.GetReferenceLastRankedItem();
+                FilesList.Items.Remove (lastAddressBar);
                 UserInputGrid.Children.Remove (lastBarButton);
             }
 
