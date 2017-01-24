@@ -40,7 +40,7 @@ namespace WAV2ByteArray
 
         }
 
-        private void ToClipboardClick(object sender, RoutedEventArgs e)
+        private void ToClipboardClick (object sender, RoutedEventArgs e)
         {
 
         }

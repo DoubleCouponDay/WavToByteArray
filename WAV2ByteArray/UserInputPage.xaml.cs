@@ -106,6 +106,7 @@ namespace WAV2ByteArray
             
             string[] allAddresses = barsQuery.ToArray();
             ByteConversion.Invoke (allAddresses);    
+MessageBox.Show ("soon tm :^)");
         }
         public event OnByteConversion ByteConversion;
         public delegate void OnByteConversion (string[] inputFilesAddresses);        
