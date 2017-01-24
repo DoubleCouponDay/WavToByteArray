@@ -15,12 +15,12 @@ namespace WAV2ByteArray
     /// </summary>
     public class AFindButtonsProperties : RankedNameModel <Button>
     {
-        public const int ROW = 0;
-        public const int COLUMN = 1;
-        public const double WIDTH = 30;
-        public const double HEIGHT = 20;
-        public const double MARGIN_INCREMENT = 20;
-        public const string CONTENT = "...";
+        public readonly int ROW = 0;
+        public readonly int COLUMN = 1;
+        public readonly double WIDTH = 30;
+        public readonly double HEIGHT = 20;
+        public readonly double MARGIN_INCREMENT = 20;
+        public readonly string CONTENT = "...";
 
         public readonly VerticalAlignment verticalAlignment = VerticalAlignment.Top;
         public readonly HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left;

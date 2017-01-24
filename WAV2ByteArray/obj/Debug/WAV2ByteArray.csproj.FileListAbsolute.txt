@@ -30,3 +30,5 @@ C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteA
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.csproj.GenerateResource.Cache
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.exe
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.pdb
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\OutputPage.g.cs
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\OutputPage.baml

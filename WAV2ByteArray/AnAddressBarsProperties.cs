@@ -13,9 +13,9 @@ namespace WAV2ByteArray
     {
         public readonly Thickness BorderThickness = new Thickness (2);
         public readonly SolidColorBrush BorderBrush = Brushes.Beige;
-        public const double WIDTH = double.NaN;
-        public const double HEIGHT = 20;
-        public const string CONTENT = "...";
+        public readonly double WIDTH = double.NaN;
+        public readonly double HEIGHT = 20;
+        public readonly string CONTENT = "...";
 
         public override string StringPartOfConventionalName { get { return "AddressBar"; } }
 

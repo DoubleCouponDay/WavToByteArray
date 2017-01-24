@@ -57,8 +57,11 @@
     </ApplicationDefinition>
     <Compile Include="AFindButtonsProperties.cs" />
     <Compile Include="AnAddressBarsProperties.cs" />
-    <Compile Include="RankedNameModel.cs" />
     <Compile Include="ByteFactory.cs" />
+    <Compile Include="OutputPage.xaml.cs">
+      <DependentUpon>OutputPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RankedNameModel.cs" />
     <Compile Include="UserInputPage.xaml.cs">
       <DependentUpon>UserInputPage.xaml</DependentUpon>
     </Compile>
@@ -75,6 +78,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OutputPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInputPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

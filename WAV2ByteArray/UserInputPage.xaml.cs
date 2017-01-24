@@ -20,26 +20,14 @@ namespace WAV2ByteArray
         private const int MIN_ADDRESS_BARS = 1;
         private const int MAX_ADDRESS_BARS = 20;        
 
-        private AFindButtonsProperties buttonProperties;
-        private AnAddressBarsProperties barProperties;
-
-        private ByteFactory output = new ByteFactory();
-        public ObservableCollection <AnAddressBarsProperties> addressBars = new ObservableCollection <AnAddressBarsProperties>();
-
-        private struct ErrorMessages
-        {
-            public const string NO_CONTENT = "You Must Select at least one file to continue!";
-            public const string WRONG_FILE_TYPE = "File is not a .WAV!";
-            public const string UNKNOWN = "Something went wrong :( contact the developer!";
-            public const string MAX_ITEMS = "Only 20 files are allowed at once!";
-            public const string MIN_ITEMS = "You must have at least one Item!";
-        }
+        private AFindButtonsProperties m_buttonProperties;
+        private AnAddressBarsProperties m_barProperties;
 
         public UserInputPage()
         {
             InitializeComponent();
-            //buttonProperties = new AFindButtonsProperties (UserInputGrid);
-            barProperties = new AnAddressBarsProperties (UserInputGrid);
+            m_buttonProperties = new AFindButtonsProperties (UserInputGrid);
+            m_barProperties = new AnAddressBarsProperties (UserInputGrid);
         }
 
         private void ClickFindAddress (object sender, RoutedEventArgs e)
@@ -64,31 +52,31 @@ namespace WAV2ByteArray
         private void CreateNewAddressBar()
         {
             ListBoxItem newAddressBar = new ListBoxItem();
-            newAddressBar.BorderBrush = barProperties.BorderBrush;
-            newAddressBar.BorderThickness = barProperties.BorderThickness;
-            newAddressBar.Name = barProperties.GetLatestRankedName();
-            newAddressBar.Width = AnAddressBarsProperties.WIDTH;
-            newAddressBar.Height = AnAddressBarsProperties.HEIGHT;
-            newAddressBar.Content = AnAddressBarsProperties.CONTENT;            
+            newAddressBar.BorderBrush = m_barProperties.BorderBrush;
+            newAddressBar.BorderThickness = m_barProperties.BorderThickness;
+            newAddressBar.Name = m_barProperties.GetLatestRankedName();
+            newAddressBar.Width = m_barProperties.WIDTH;
+            newAddressBar.Height = m_barProperties.HEIGHT;
+            newAddressBar.Content = m_barProperties.CONTENT;            
             FilesList.Items.Add (newAddressBar);
         }
 
         private void CreateFindButton()
         {
             Button newAddressButton = new Button();
-            newAddressButton.VerticalAlignment = buttonProperties.verticalAlignment;
-            newAddressButton.HorizontalAlignment = buttonProperties.horizontalAlignment;
-            newAddressButton.Width = AFindButtonsProperties.WIDTH;
-            newAddressButton.Height = AFindButtonsProperties.HEIGHT;
-            newAddressButton.SetValue (Grid.RowProperty, AFindButtonsProperties.ROW);
-            newAddressButton.SetValue (Grid.ColumnProperty, AFindButtonsProperties.COLUMN);
+            newAddressButton.VerticalAlignment = m_buttonProperties.verticalAlignment;
+            newAddressButton.HorizontalAlignment = m_buttonProperties.horizontalAlignment;
+            newAddressButton.Width = m_buttonProperties.WIDTH;
+            newAddressButton.Height = m_buttonProperties.HEIGHT;
+            newAddressButton.SetValue (Grid.RowProperty, m_buttonProperties.ROW);
+            newAddressButton.SetValue (Grid.ColumnProperty, m_buttonProperties.COLUMN);
 
-            Thickness marginConstruction = buttonProperties.GetCopyLastButtonsMargin();
-            marginConstruction.Top += AFindButtonsProperties.MARGIN_INCREMENT;
+            Thickness marginConstruction = m_buttonProperties.GetCopyLastButtonsMargin();
+            marginConstruction.Top += m_buttonProperties.MARGIN_INCREMENT;
             newAddressButton.Margin = marginConstruction;
 
-            newAddressButton.Name = buttonProperties.GetLatestRankedName();
-            newAddressButton.Content = AFindButtonsProperties.CONTENT;
+            newAddressButton.Name = m_buttonProperties.GetLatestRankedName();
+            newAddressButton.Content = m_buttonProperties.CONTENT;
             newAddressButton.Click += ClickFindAddress;       
             UserInputGrid.Children.Add (newAddressButton);
         }
@@ -97,8 +85,8 @@ namespace WAV2ByteArray
         {
             if (FilesList.Items.Count > MIN_ADDRESS_BARS)
             {
-                ListBoxItem lastAddressBar = barProperties.GetReferenceLastRankedItem();
-                Button lastBarButton = buttonProperties.GetReferenceLastRankedItem();
+                ListBoxItem lastAddressBar = m_barProperties.GetReferenceLastRankedItem();
+                Button lastBarButton = m_buttonProperties.GetReferenceLastRankedItem();
                 FilesList.Items.Remove (lastAddressBar);
                 UserInputGrid.Children.Remove (lastBarButton);
             }
@@ -111,25 +99,15 @@ namespace WAV2ByteArray
 
         private void ClickConvert (object sender, RoutedEventArgs e)
         {
-            ListBoxItem firstBar = FilesList.Items.GetItemAt (0) as ListBoxItem;
-
-            if (firstBar != null) //conversion check
-            {
-                if (firstBar.Content.ToString() != AnAddressBarsProperties.CONTENT)
-                {
-
-                }
-
-                else
-                {
-                    MessageBox.Show (ErrorMessages.NO_CONTENT);
-                }
-            }
-
-            else
-            {
-                MessageBox.Show (ErrorMessages.UNKNOWN);
-            }
+            IEnumerable <string> barsQuery = from item in FilesList.Items.OfType <ListBoxItem>()
+                                             let itemsContent = item.Content.ToString()
+                                             where itemsContent != m_barProperties.CONTENT
+                                             select itemsContent;
+            
+            string[] allAddresses = barsQuery.ToArray();
+            ByteConversion.Invoke (allAddresses);    
         }
+        public event OnByteConversion ByteConversion;
+        public delegate void OnByteConversion (string[] inputFilesAddresses);        
     }
 }

@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WAV2ByteArray"
         mc:Ignorable="d"
-        Title="InputPage" Height="550" Width="500">
+        Title="InputPage" 
+        Height="550" 
+        Width="500">
 
     <Grid Name="UserInputGrid">
         <Grid.ColumnDefinitions>

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WAV2ByteArray"
         mc:Ignorable="d"
         ResizeMode="NoResize"        
-        Title="WAV2Bytes" Height="550" Width="500">
-    <Frame Name="CurrentPage" Source="UserInputPage.xaml" />
+        Title="WAV2Bytes" 
+        Height="550" 
+        Width="500">
 </Window>
