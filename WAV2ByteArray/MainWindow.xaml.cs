@@ -37,18 +37,22 @@ namespace WAV2ByteArray
         /// </summary>
         /// <param name="inputFilesAddresses"></param>
         public void OnByteConversion (string[] inputFilesAddresses)
-        {
-            outputPage.ConvertWavToBytes (inputFilesAddresses);
+        {            
+            outputPage.ConvertWavToBytes (inputFilesAddresses);            
             Content = outputPage;
         }
     }
 
     public struct ErrorMessages
     {
+        public const string MIN_ADDRESS_BARS = "1";
+        public const string MAX_ADDRESS_BARS = "5";
+        public const string MIN_ITEMS = "You must have a minimum item count of " + MIN_ADDRESS_BARS + "!";  
+        public const string MAX_ITEMS = "Only " + MAX_ADDRESS_BARS + " files are allowed at once!";
+          
         public const string NO_CONTENT = "You Must Select at least one file to continue!";
         public const string WRONG_FILE_TYPE = "File is not a .WAV!";
-        public const string UNKNOWN = "Something went wrong :( contact the developer!";
-        public const string MAX_ITEMS = "Only 20 files are allowed at once!";
-        public const string MIN_ITEMS = "You must have at least one Item!";
+        public const string UNKNOWN = "Something went wrong :( contact the developer!";        
+        public const string BAD_FILE = "The file you specified could not be opened!";
     }
 }

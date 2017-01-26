@@ -15,7 +15,6 @@ C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\De
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\UserInputPage.baml
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.csprojResolveAssemblyReference.cache
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WAV2ByteArray.exe.config
-C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.csprojResolveAssemblyReference.cache
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\MainWindow.g.cs
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\UserInputPage.g.cs
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\App.g.cs
@@ -32,3 +31,6 @@ C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteA
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.pdb
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\OutputPage.g.cs
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\OutputPage.baml
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WpfAnimatedGif.dll
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WpfAnimatedGif.xml
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.csprojResolveAssemblyReference.cache

@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:WAV2ByteArray"
         mc:Ignorable="d"
         Title="InputPage" 
-        Height="550" 
+        Height="350" 
         Width="500">
 
     <Grid Name="UserInputGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>   
@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Grid.Column="0" Height="30" Width="500" Background="#4E87D4" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Width="500" Background="#4E87D4" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Label VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Height="Auto" Margin="95,4,168,0">Locate .WAV files you wish to be converted</Label>
         </Border>
 
@@ -28,9 +28,9 @@
             <ListBoxItem Name="AddressBar_1" BorderBrush="Beige" BorderThickness="2" Width="Auto" Height="20">...</ListBoxItem>
         </ListBox>
         
-        <Button Name="FindAddressButton_1" Grid.Row="0" Grid.Column="1" Margin="5,37,0,0" Width="30" Height="20" VerticalAlignment="Top" HorizontalAlignment="left" Click="ClickFindAddress">...</Button>
+        <Button Name="FindAddressButton_1" Grid.Row="0" Grid.Column="1" Margin="5,37,0,0" Width="Auto" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ClickFindAddress">...</Button>
         <Button Name="NewFileButton" Grid.Row="1" Margin="10,6,0,0" Width="Auto" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ClickNewBar">New Item</Button>
         <Button Name="RemoveFileButton" Grid.Row="1" Margin="79,6,0,0" Width="Auto" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ClickRemoveBar">Remove Last Item</Button>
-        <Button Grid.Column="1" Margin="0,0,-53,0" Width="Auto" Height="30" VerticalAlignment="Top" Click="ClickConvert">Convert</Button>
+        <Button Name="ConvertButton" Grid.Column="1" Width="Auto" Height="30" VerticalAlignment="Top" Click="ClickConvert">Convert</Button>
     </Grid>
 </Page>

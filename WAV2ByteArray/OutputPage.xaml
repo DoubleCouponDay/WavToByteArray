@@ -4,16 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WAV2ByteArray"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
       Title="OutputPage"
-      Height="550" 
+      Height="350" 
       Width="500">
 
     <Grid Name="OutputPageGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -21,14 +21,17 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Grid.Column="0" Height="30" Width="500" Background="#4E87D4" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Label VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Height="Auto" Margin="95,4,168,0">Here are your byte arrays!</Label>
+        <Image Name="CatGif" gif:ImageBehavior.AnimatedSource="images/loadingCat.gif" Grid.Row="1" Grid.ColumnSpan="2" Height="200" Width="Auto" HorizontalAlignment="Center" />
+
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Width="500" Background="#4E87D4" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Label Name="Title" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Height="Auto" Margin="258,10,232,10" />
         </Border>
 
         <ListBox Name="ByteArrayList" Grid.Column="0" Grid.Row="0" Margin="0,35,0,0">
             <ListBoxItem Name="AddressBar_1" BorderBrush="Beige" BorderThickness="2" Width="Auto" Height="20">...</ListBoxItem>
         </ListBox>
-
-        <Button Name="ToClipboardButton_1" Grid.Row="0" Grid.Column="1" Margin="5,37,0,0" Width="auto" Height="20" VerticalAlignment="Top" HorizontalAlignment="left" Click="ToClipboardClick">To clipboard</Button>
+        
+        <Button Name="ClipboardButton_1" Grid.Row="0" Grid.Column="1" Margin="5,37,0,0" Width="Auto" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ToClipboardClick">To clipboard</Button>
+        <Button x:Name="PreviousPageButton" Grid.Row="0" Width="57" Height="30" VerticalAlignment="Top" HorizontalAlignment="left" Click="PreviousPageClick">Back</Button>
     </Grid>
 </Page>

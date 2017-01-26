@@ -15,10 +15,35 @@ namespace WAV2ByteArray
         public readonly SolidColorBrush BorderBrush = Brushes.Beige;
         public readonly double WIDTH = double.NaN;
         public readonly double HEIGHT = 20;
-        public readonly string CONTENT = "...";
 
-        public override string StringPartOfConventionalName { get { return "AddressBar"; } }
+        public override string NamesStringPart { get; protected set; }
+        public override string Content { get; protected set; }
 
-        public AnAddressBarsProperties (Grid inputGrid) : base (inputGrid) { }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputGrid">The grid to source the first ranked address bar as a template.</param>
+        public AnAddressBarsProperties (Grid inputGrid) : base (inputGrid)
+        {
+            this.NamesStringPart = "AddressBar";
+            this.Content = "...";
+        }
+
+        /// <summary>
+        ///  Returns a ListBoxItem designed for my app's standard ListBox.
+        /// </summary>
+        /// <param name="barsContent">The content which the bar will display</param>
+        /// <returns></returns>
+        public ListBoxItem CreateNewAddressBar (string barsContent)
+        {
+            ListBoxItem newAddressBar = new ListBoxItem();
+            newAddressBar.BorderBrush = BorderBrush;
+            newAddressBar.BorderThickness = BorderThickness;
+            newAddressBar.Name = GetLatestRankedName();
+            newAddressBar.Width = WIDTH;
+            newAddressBar.Height = HEIGHT;
+            newAddressBar.Content = barsContent;            
+            return newAddressBar;
+        }
     }
 }
