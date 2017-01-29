@@ -24,11 +24,12 @@ namespace WAV2ByteArray
         private StandardButtonProperties m_buttonProperties;
         private AnAddressBarsProperties m_barProperties;
 
-        public UserInputPage()
+        public UserInputPage (MainWindow.PageChangeDelegate pageChangeSubscriber)
         {
             InitializeComponent();
             m_buttonProperties = new StandardButtonProperties (UserInputGrid, "FindAddressButton", "...");
             m_barProperties = new AnAddressBarsProperties (UserInputGrid);
+            ByteConversion += pageChangeSubscriber;
         }
 
         private void ClickFindAddress (object sender, RoutedEventArgs e)
@@ -75,10 +76,7 @@ namespace WAV2ByteArray
 
         private void ClickNewBar (object sender, RoutedEventArgs e)
         {
-            int result;
-
-            if (int.TryParse (ErrorMessages.MAX_ADDRESS_BARS, out result) &&
-                FilesList.Items.Count < result)
+            if (FilesList.Items.Count < InternalFacts.MAX_ADDRESS_BARS)
             {   
                 ListBoxItem newAddressBar = m_barProperties.CreateNewAddressBar (m_barProperties.Content);            
                 FilesList.Items.Add (newAddressBar);
@@ -95,10 +93,7 @@ namespace WAV2ByteArray
 
         private void ClickRemoveBar (object sender, RoutedEventArgs e)
         {
-            int result;
-
-            if (int.TryParse (ErrorMessages.MIN_ADDRESS_BARS, out result) &&
-                FilesList.Items.Count > result)
+            if (FilesList.Items.Count > InternalFacts.MIN_ADDRESS_BARS)
             {
                 ListBoxItem lastAddressBar = m_barProperties.GetReferenceLastRankedItem();
                 Button lastBarButton = m_buttonProperties.GetReferenceLastRankedItem();
@@ -119,9 +114,8 @@ namespace WAV2ByteArray
                                              select itemsContent;
             
             string[] allAddresses = barsQuery.ToArray();
-            ByteConversion.Invoke (allAddresses);           
+            ByteConversion.Invoke (PageOptions.OUTPUT_PAGE, allAddresses);           
         }
-        public event OnByteConversion ByteConversion;
-        public delegate void OnByteConversion (string[] inputFilesAddresses);        
+        public event MainWindow.PageChangeDelegate ByteConversion;        
     }
 }

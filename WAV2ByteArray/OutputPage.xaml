@@ -24,7 +24,7 @@
         <Image Name="CatGif" gif:ImageBehavior.AnimatedSource="images/loadingCat.gif" Grid.Row="1" Grid.ColumnSpan="2" Height="200" Width="Auto" HorizontalAlignment="Center" />
 
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Width="500" Background="#4E87D4" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Label Name="Title" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Height="Auto" Margin="258,10,232,10" />
+            <Label Name="Title" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Height="Auto"></Label>
         </Border>
 
         <ListBox Name="ByteArrayList" Grid.Column="0" Grid.Row="0" Margin="0,35,0,0">

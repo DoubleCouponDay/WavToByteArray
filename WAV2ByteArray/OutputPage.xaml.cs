@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,11 +27,12 @@ namespace WAV2ByteArray
         private AnAddressBarsProperties m_barProperties;
         private StandardButtonProperties m_buttonProperties;
 
-        public OutputPage()
+        public OutputPage (MainWindow.PageChangeDelegate pageChangeSubscriber)
         {
             InitializeComponent();
             m_barProperties = new AnAddressBarsProperties (OutputPageGrid);            
             m_buttonProperties = new StandardButtonProperties (OutputPageGrid, "ClipboardButton", "To Clipboard");
+            ToSquareOne += pageChangeSubscriber;
         }
 
         /// <summary>
@@ -40,14 +42,18 @@ namespace WAV2ByteArray
         /// <param name="fileAddresses">windows addresses to audio files</param>
         public void ConvertWavToBytes (string[] fileAddresses)
         {
-            Title.Content = "LOADING...";
-            CatGif.Visibility = Visibility.Visible;
-            ImageBehavior.SetAutoStart (CatGif, true);
-            ImageBehavior.SetRepeatBehavior (CatGif, RepeatBehavior.Forever);
-
             if (fileAddresses != null)
             {
+                Title.Content = "LOADING...";
+                CatGif.Visibility = Visibility.Visible;
+                ImageBehavior.SetAutoStart (CatGif, true);
+                ImageBehavior.SetRepeatBehavior (CatGif, RepeatBehavior.Forever);
                 Parallel.Invoke (() => DisplayFilesAsynchronously (fileAddresses));           
+            }
+
+            else
+            {
+                MessageBox.Show (ErrorMessages.UNKNOWN);
             }
         }
 
@@ -60,7 +66,7 @@ namespace WAV2ByteArray
             await Task.Run (() => {
                 for (int i = 0; i < fileAddresses.Length; i++)
                 {
-                    if (File.Exists (fileAddresses[i]))
+                    if (File.Exists (fileAddresses[i])) //niceway of checking if user placed an item in that box.
                     {
                         byte[] currentBytes = File.ReadAllBytes (fileAddresses[i]);
                         StringBuilder serialBytes = new StringBuilder();
@@ -73,7 +79,7 @@ namespace WAV2ByteArray
                         string builderConverted = serialBytes.ToString();
 
                         Dispatcher.Invoke (() => { //needed in order to command the User Interface thread from the process thread.
-                            if (AddressBar_1.Content.ToString() == m_barProperties.Content)
+                            if (i == default (int))
                             {
                                 AddressBar_1.Content = builderConverted;
                             }
@@ -85,10 +91,10 @@ namespace WAV2ByteArray
                         });                                                       
                     }
 
-                    else
+                    else if (i != default (int)) //assuming the default OutputPage's only address bar has no content.
                     {
                         Dispatcher.Invoke (() => {
-                            NewMatchingPair (m_barProperties.Content, ToClipboardClick);                            
+                            NewMatchingPair (m_barProperties.Content, ToClipboardClick);
                         });
                     }
                 }       
@@ -111,25 +117,54 @@ namespace WAV2ByteArray
 
         private void ToClipboardClick (object sender, RoutedEventArgs e)
         {
-            Button trigger = e.Source as Button;
-
-            if (trigger != null)
+            try
             {
-                List <FrameworkElement> matchList = m_buttonProperties.GetAllWithMatchingRanks (trigger);
+                Button trigger = e.Source as Button;
 
-                foreach (ListBoxItem triggersPair in matchList.OfType <ListBoxItem>())
+                if (trigger != null)
                 {
-                    Clipboard.SetText (triggersPair.Content.ToString());
-                    string boxesRank = triggersPair.Content.ToString().Split (m_barProperties.NAME_RANKS_SEPARATOR)[m_barProperties.RANKS_SPLIT_INDEX];
-                    MessageBox.Show ("Copied output " + boxesRank + " to clipboard.");
-                    break;
+                    List <FrameworkElement> matchList = m_buttonProperties.GetAllWithMatchingRanks (trigger);
+
+                    if (matchList.Count != default (int))
+                    {
+                        foreach (ListBoxItem triggersPair in matchList.OfType <ListBoxItem>())
+                        {   
+                            Clipboard.SetText (triggersPair.Content.ToString());     
+                            string buttonsContent = trigger.Content.ToString();                             
+                            string[] dividedName = buttonsContent.Split (m_barProperties.NAME_RANKS_SEPARATOR); //dont do this to triggersPair.Content! You dont have enough memory :']       
+                            string boxesRank = default (string);               
+
+                            if (dividedName.Length >= m_barProperties.RANKS_SPLIT_INDEX + 1)
+                            {
+                                boxesRank = dividedName[m_barProperties.RANKS_SPLIT_INDEX];                                
+                            }
+
+                            else
+                            {
+                                boxesRank = buttonsContent;
+                            }
+                            MessageBox.Show ("Copied output " + boxesRank + " to clipboard.");
+                            break;
+                        }
+                    }
+                    
+                    else
+                    {
+                        MessageBox.Show (ErrorMessages.UNKNOWN);
+                    }              
                 }
+            }
+
+            catch (Exception exception)
+            {
+                MessageBox.Show (exception.ToString());
             }
         }
 
         private void PreviousPageClick (object sender, RoutedEventArgs e)
         {
-
+            ToSquareOne.Invoke (PageOptions.INPUT_PAGE, null);
         }
+        public event MainWindow.PageChangeDelegate ToSquareOne;
     }
 }

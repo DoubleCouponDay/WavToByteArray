@@ -26,33 +26,33 @@ namespace WAV2ByteArray
         public MainWindow()
         {
             InitializeComponent();       
-            inputPage = new UserInputPage();       
-            outputPage = new OutputPage();
-            inputPage.ByteConversion += OnByteConversion;         
+            inputPage = new UserInputPage (OnPageChange);       
+            outputPage = new OutputPage (OnPageChange);                    
             Content = inputPage; //must extend Page class for this to work.
         }
 
-        /// <summary>
-        /// This method's header matches UserInputPage.InByteConversion so that it can subscribe to the UserInputPage.ByteConversion event.
-        /// </summary>
-        /// <param name="inputFilesAddresses"></param>
-        public void OnByteConversion (string[] inputFilesAddresses)
+        public void OnPageChange (PageOptions pageToView, string[] sendersMessage)
         {            
-            outputPage.ConvertWavToBytes (inputFilesAddresses);            
-            Content = outputPage;
-        }
-    }
+            switch (pageToView)
+            {
+                case PageOptions.INPUT_PAGE:
+                    Content = inputPage;
+                    break;
 
-    public struct ErrorMessages
-    {
-        public const string MIN_ADDRESS_BARS = "1";
-        public const string MAX_ADDRESS_BARS = "5";
-        public const string MIN_ITEMS = "You must have a minimum item count of " + MIN_ADDRESS_BARS + "!";  
-        public const string MAX_ITEMS = "Only " + MAX_ADDRESS_BARS + " files are allowed at once!";
-          
-        public const string NO_CONTENT = "You Must Select at least one file to continue!";
-        public const string WRONG_FILE_TYPE = "File is not a .WAV!";
-        public const string UNKNOWN = "Something went wrong :( contact the developer!";        
-        public const string BAD_FILE = "The file you specified could not be opened!";
+                case PageOptions.OUTPUT_PAGE:           
+                    outputPage = new OutputPage (OnPageChange);                             
+                    outputPage.ConvertWavToBytes (sendersMessage);
+                    Content = outputPage;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Delegate is used by all events wishing to change the page. 
+        /// Pages who wish to invoke this delegate should be expected to take a subscriber method as argument, then subscribe it to its own event.
+        /// </summary>
+        /// <param name="pageToView"></param>
+        /// <param name="sendersMessage"></param>
+        public delegate void PageChangeDelegate (PageOptions pageToView, string[] sendersMessage); 
     }
 }

@@ -33,4 +33,8 @@ C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteA
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.csproj.GenerateResource.Cache
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.exe
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.pdb
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WAV2ByteArray.exe.manifest
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WAV2ByteArray.application
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.exe.manifest
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.application
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.csprojResolveAssemblyReference.cache

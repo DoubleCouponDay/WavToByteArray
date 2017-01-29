@@ -121,10 +121,15 @@ namespace WAV2ByteArray
 
             if (rankedObjectToMatch != null)
             {                   
-                int inputsRank;
+                int inputsRank = -1; //assuming a rank cannot be negative.
                 int currentComparablesRank = default (int); //assuming rank can never be 0; the first ranked element of each type is manually named though..
+                string[] inputsDividedName = rankedObjectToMatch.Name.Split (NAME_RANKS_SEPARATOR);
+                bool inputParseSucceeded = default (bool);
 
-                bool inputParseSucceeded = int.TryParse (rankedObjectToMatch.Name.Split (NAME_RANKS_SEPARATOR)[RANKS_SPLIT_INDEX], out inputsRank);
+                if (inputsDividedName.Length >= RANKS_SPLIT_INDEX + 1)
+                {
+                    inputParseSucceeded = int.TryParse (inputsDividedName[RANKS_SPLIT_INDEX], out inputsRank);
+                }                 
 
                 IEnumerable <FrameworkElement> matchingRankedElements = from element in allFrameworkElements
                                                                         let comparablesSplitName = element.Name.Split (NAME_RANKS_SEPARATOR)
@@ -133,8 +138,7 @@ namespace WAV2ByteArray
                                                                         && int.TryParse (comparablesSplitName[RANKS_SPLIT_INDEX], out currentComparablesRank) == true
                                                                         && inputsRank == currentComparablesRank
                                                                         && (rankedObjectToMatch as FrameworkElement) != element //used != operator instead of .Equals() since i only need to know that they are referring to the same instance.
-                                                                        select element;
-                 
+                                                                        select element;                 
                 matches = matchingRankedElements.ToList();
             }
             return matches;
