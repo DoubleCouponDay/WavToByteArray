@@ -2,7 +2,7 @@
 A WPF application which converts .wav files to strings of bytes.
 
 #Installation
-1: click this link and click the download button [WavToByteArray.exe.](https://github.com/DoubleCouponDay/WavToByteArray/blob/master/WAV2ByteArray/bin/Release/WavToByteArray%201.0/WAV2ByteArray.exe)
+1: click this link [WavToByteArray.exe.](https://github.com/DoubleCouponDay/WavToByteArray/blob/master/WAV2ByteArray/bin/Release/WavToByteArray%201.0/WAV2ByteArray.exe) then click the download button.
 
 2: Next, click the download button for [WpfAnimatedGif.dll.](https://github.com/DoubleCouponDay/WavToByteArray/blob/master/WAV2ByteArray/bin/Release/WavToByteArray%201.0/WpfAnimatedGif.dll)
 
