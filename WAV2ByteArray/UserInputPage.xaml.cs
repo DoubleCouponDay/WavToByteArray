@@ -19,8 +19,6 @@ namespace WAV2ByteArray
 {
     public partial class UserInputPage : Page
     {
-        private const string FILE_FORMAT = "WAV";
-
         private StandardButtonProperties m_buttonProperties;
         private AnAddressBarsProperties m_barProperties;
 
@@ -63,12 +61,12 @@ namespace WAV2ByteArray
         private bool? NewFindWavFileDialog (ref string filesName)
         {
             OpenFileDialog finderBox = new OpenFileDialog();
-            finderBox.DefaultExt = FILE_FORMAT;
+            finderBox.DefaultExt = "WAV";
             finderBox.CheckFileExists = true;
             finderBox.CheckPathExists = true;
             finderBox.AddExtension = true;
             finderBox.Title = "Find your WAV file";
-            finderBox.Filter = "WAV files (*.wav)|*.wav"; //prevents any other file type from being passed.
+            finderBox.Filter = "WAV files (*.wav)|*.wav|XWM files (*.xwm)|*.xwm"; //prevents any other file type from being passed.
             bool? dialogOutcome = finderBox.ShowDialog();
             filesName = finderBox.FileName;
             return dialogOutcome;
