@@ -129,21 +129,21 @@ namespace WAV2ByteArray
                     {
                         foreach (ListBoxItem triggersPair in matchList.OfType <ListBoxItem>())
                         {   
-                            Clipboard.SetText (triggersPair.Content.ToString());     
-                            string buttonsContent = trigger.Content.ToString();                             
-                            string[] dividedName = buttonsContent.Split (m_barProperties.NAME_RANKS_SEPARATOR); //dont do this to triggersPair.Content! You dont have enough memory :']       
-                            string boxesRank = default (string);               
+                            Clipboard.SetText (triggersPair.Content.ToString());                             
+                            string[] dividedName = trigger.Name.Split (m_barProperties.NAME_RANKS_SEPARATOR); //dont do this to triggersPair.Content! You dont have enough memory :']       
+                            string outcomeMessage = default (string);        
 
                             if (dividedName.Length >= m_barProperties.RANKS_SPLIT_INDEX + 1)
                             {
-                                boxesRank = dividedName[m_barProperties.RANKS_SPLIT_INDEX];                                
+                                string boxesRank  = dividedName[m_barProperties.RANKS_SPLIT_INDEX];          
+                                outcomeMessage = "Copied output " + boxesRank + " to clipboard.";
                             }
 
                             else
                             {
-                                boxesRank = buttonsContent;
+                                outcomeMessage = "Copied output to clipboard";
                             }
-                            MessageBox.Show ("Copied output " + boxesRank + " to clipboard.");
+                            MessageBox.Show (outcomeMessage);
                             break;
                         }
                     }
