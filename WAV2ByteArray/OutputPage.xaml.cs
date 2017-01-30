@@ -69,12 +69,12 @@ namespace WAV2ByteArray
                     if (File.Exists (fileAddresses[i])) //niceway of checking if user placed an item in that box.
                     {
                         byte[] currentBytes = File.ReadAllBytes (fileAddresses[i]);
-                        StringBuilder serialBytes = new StringBuilder();
+                        StringBuilder serialBytes = new StringBuilder(); //Optimized for concatanating massive strings.
 
                         for (int x = 0; x < currentBytes.Length; x++)
                         {
-                            serialBytes.Append (currentBytes[x]);
-                            serialBytes.Append (" ");
+                            serialBytes.Append (", ");
+                            serialBytes.Append (currentBytes[x]);                            
                         }
                         string builderConverted = serialBytes.ToString();
 
