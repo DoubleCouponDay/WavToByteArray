@@ -94,6 +94,7 @@
     <Compile Include="OutputPage.xaml.cs">
       <DependentUpon>OutputPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlayerTest.cs" />
     <Compile Include="RankedNameModel.cs" />
     <Compile Include="UserInputPage.xaml.cs">
       <DependentUpon>UserInputPage.xaml</DependentUpon>

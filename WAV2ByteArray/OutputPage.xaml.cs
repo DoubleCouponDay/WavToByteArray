@@ -15,6 +15,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Media;
+
 using WpfAnimatedGif;
 
 namespace WAV2ByteArray
@@ -24,6 +26,8 @@ namespace WAV2ByteArray
     /// </summary>
     public partial class OutputPage : Page
     {
+private PlayerTest musicPlayer;
+
         private AnAddressBarsProperties m_barProperties;
         private StandardButtonProperties m_buttonProperties;
 
@@ -33,6 +37,8 @@ namespace WAV2ByteArray
             m_barProperties = new AnAddressBarsProperties (OutputPageGrid);            
             m_buttonProperties = new StandardButtonProperties (OutputPageGrid, "ClipboardButton", "To Clipboard");
             ToSquareOne += pageChangeSubscriber;
+
+musicPlayer = new PlayerTest();
         }
 
         /// <summary>
@@ -69,6 +75,9 @@ namespace WAV2ByteArray
                     if (File.Exists (fileAddresses[i])) //niceway of checking if user placed an item in that box.
                     {
                         byte[] currentBytes = File.ReadAllBytes (fileAddresses[i]);
+Dispatcher.Invoke (() => {
+    musicPlayer.WriteStream (currentBytes);
+});
                         StringBuilder serialBytes = new StringBuilder(); //Optimized for concatanating massive strings.
 
                         for (int x = 0; x < currentBytes.Length; x++)
@@ -117,47 +126,50 @@ namespace WAV2ByteArray
 
         private void ToClipboardClick (object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Button trigger = e.Source as Button;
+try
+{
+    musicPlayer.PlayStream();
+}
 
-                if (trigger != null)
+catch (Exception failed)
+{
+    MessageBox.Show (failed.ToString());
+    throw;
+}
+            Button trigger = e.Source as Button;
+
+            if (trigger != null)
+            {
+                List <FrameworkElement> matchList = m_buttonProperties.GetAllWithMatchingRanks (trigger);
+
+                if (matchList.Count != default (int))
                 {
-                    List <FrameworkElement> matchList = m_buttonProperties.GetAllWithMatchingRanks (trigger);
+                    foreach (ListBoxItem triggersPair in matchList.OfType <ListBoxItem>())
+                    {   
+                        Clipboard.SetText (triggersPair.Content.ToString());                                                                                     
+                        string[] dividedName = trigger.Name.Split (m_barProperties.NAME_RANKS_SEPARATOR); //dont do this to triggersPair.Content! You dont have enough memory :']       
+                        string outcomeMessage = default (string);        
 
-                    if (matchList.Count != default (int))
-                    {
-                        foreach (ListBoxItem triggersPair in matchList.OfType <ListBoxItem>())
-                        {   
-                            Clipboard.SetText (triggersPair.Content.ToString());                             
-                            string[] dividedName = trigger.Name.Split (m_barProperties.NAME_RANKS_SEPARATOR); //dont do this to triggersPair.Content! You dont have enough memory :']       
-                            string outcomeMessage = default (string);        
-
-                            if (dividedName.Length >= m_barProperties.RANKS_SPLIT_INDEX + 1)
-                            {
-                                string boxesRank  = dividedName[m_barProperties.RANKS_SPLIT_INDEX];          
-                                outcomeMessage = "Copied output " + boxesRank + " to clipboard.";
-                            }
-
-                            else
-                            {
-                                outcomeMessage = "Copied output to clipboard";
-                            }
-                            MessageBox.Show (outcomeMessage);
-                            break;
+                        if (dividedName.Length >= m_barProperties.RANKS_SPLIT_INDEX + 1)
+                        {
+                            string boxesRank  = dividedName[m_barProperties.RANKS_SPLIT_INDEX];          
+                            outcomeMessage = "Copied output " + boxesRank + " to clipboard.";
                         }
-                    }
-                    
-                    else
-                    {
-                        MessageBox.Show (ErrorMessages.UNKNOWN);
-                    }              
-                }
-            }
 
-            catch (Exception exception)
-            {
-                MessageBox.Show (exception.ToString());
+                        else
+                        {
+                            outcomeMessage = "Copied output to clipboard";
+                        }
+                        MessageBoxResult promptsReturn = MessageBox.Show (outcomeMessage);
+musicPlayer.StopPlaying();                                                
+                        break;
+                    }
+                }
+                    
+                else
+                {
+                    MessageBox.Show (ErrorMessages.UNKNOWN);
+                }              
             }
         }
 
