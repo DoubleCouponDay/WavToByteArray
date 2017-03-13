@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Media;
+using System.Threading;
 
 using WpfAnimatedGif;
 
@@ -24,9 +25,12 @@ namespace WAV2ByteArray
     /// <summary>
     /// Interaction logic for OutputPage.xaml
     /// </summary>
-    public partial class OutputPage : Page
+    public partial class OutputPage : Page, IDisposable
     {
-private PlayerTest musicPlayer;
+        private PlayerTest musicPlayer;
+        private TaskFactory taskFactory;
+        private CancellationTokenSource cancelTokenSignaller;
+        private CancellationToken taskCanceller;
 
         private AnAddressBarsProperties m_barProperties;
         private StandardButtonProperties m_buttonProperties;
@@ -36,9 +40,12 @@ private PlayerTest musicPlayer;
             InitializeComponent();
             m_barProperties = new AnAddressBarsProperties (OutputPageGrid);            
             m_buttonProperties = new StandardButtonProperties (OutputPageGrid, "ClipboardButton", "To Clipboard");
-            ToSquareOne += pageChangeSubscriber;
-
-musicPlayer = new PlayerTest();
+            ToSquareOne += pageChangeSubscriber; 
+            musicPlayer = new PlayerTest();
+            cancelTokenSignaller = new CancellationTokenSource();
+            taskCanceller = cancelTokenSignaller.Token;
+            taskFactory = new TaskFactory (taskCanceller);
+            cancelTokenSignaller.Dispose();
         }
 
         /// <summary>
@@ -69,15 +76,14 @@ musicPlayer = new PlayerTest();
         /// <param name="fileAddresses"></param>
         private async void DisplayFilesAsynchronously (string[] fileAddresses)
         {
-            await Task.Run (() => {
+            await taskFactory.StartNew (() => {
+                var taskCanceller = new CancellationTokenSource();
+
                 for (int i = 0; i < fileAddresses.Length; i++)
                 {
                     if (File.Exists (fileAddresses[i])) //niceway of checking if user placed an item in that box.
                     {
                         byte[] currentBytes = File.ReadAllBytes (fileAddresses[i]);
-Dispatcher.Invoke (() => {
-    musicPlayer.WriteStream (currentBytes);
-});
                         StringBuilder serialBytes = new StringBuilder(); //Optimized for concatanating massive strings.
 
                         for (int x = 0; x < currentBytes.Length; x++)
@@ -88,6 +94,8 @@ Dispatcher.Invoke (() => {
                         string builderConverted = serialBytes.ToString();
 
                         Dispatcher.Invoke (() => { //needed in order to command the User Interface thread from the process thread.
+                            musicPlayer.WriteStream (currentBytes);
+
                             if (i == default (int))
                             {
                                 AddressBar_1.Content = builderConverted;
@@ -96,13 +104,13 @@ Dispatcher.Invoke (() => {
                             else
                             {   
                                 NewMatchingPair (builderConverted, ToClipboardClick);                             
-                            }                           
-                        });                                                       
+                            }                    
+                        });                                                                         
                     }
 
                     else if (i != default (int)) //assuming the default OutputPage's only address bar has no content.
                     {
-                        Dispatcher.Invoke (() => {
+                        Dispatcher.Invoke (() => {                        
                             NewMatchingPair (m_barProperties.Content, ToClipboardClick);
                         });
                     }
@@ -126,16 +134,16 @@ Dispatcher.Invoke (() => {
 
         private void ToClipboardClick (object sender, RoutedEventArgs e)
         {
-try
-{
-    musicPlayer.PlayStream();
-}
+            try
+            {
+                musicPlayer.PlayStream();
+            }
 
-catch (Exception failed)
-{
-    MessageBox.Show (failed.ToString());
-    throw;
-}
+            catch (Exception failed)
+            {
+                MessageBox.Show (failed.ToString());
+                throw;
+            }
             Button trigger = e.Source as Button;
 
             if (trigger != null)
@@ -161,7 +169,7 @@ catch (Exception failed)
                             outcomeMessage = "Copied output to clipboard";
                         }
                         MessageBoxResult promptsReturn = MessageBox.Show (outcomeMessage);
-musicPlayer.StopPlaying();                                                
+                        musicPlayer.StopPlaying();                                                
                         break;
                     }
                 }
@@ -177,6 +185,12 @@ musicPlayer.StopPlaying();
         {
             ToSquareOne.Invoke (PageOptions.INPUT_PAGE, null);
         }
+
+        public void Dispose()
+        {
+            cancelTokenSignaller.Dispose();
+        }
+
         public event MainWindow.PageChangeDelegate ToSquareOne;
     }
 }

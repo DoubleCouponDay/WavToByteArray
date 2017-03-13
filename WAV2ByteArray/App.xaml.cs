@@ -18,9 +18,10 @@ namespace WAV2ByteArray
         {
             try
             {
-                MainWindow = new MainWindow ();
+                MainWindow = new MainWindow();
                 MainWindow.Show();
             }
+
             catch (Exception test)
             {
                 MessageBox.Show (test.ToString());

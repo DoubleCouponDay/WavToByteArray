@@ -32,19 +32,20 @@ namespace WAV2ByteArray
         }
 
         public void OnPageChange (PageOptions pageToView, string[] sendersMessage)
-        {            
-            switch (pageToView)
-            {
-                case PageOptions.INPUT_PAGE:
-                    Content = inputPage;
-                    break;
+        {
+                switch (pageToView)
+                {
+                    case PageOptions.INPUT_PAGE:
+                        Content = inputPage;
+                        break;
 
-                case PageOptions.OUTPUT_PAGE:           
-                    outputPage = new OutputPage (OnPageChange);                             
-                    outputPage.ConvertWavToBytes (sendersMessage);
-                    Content = outputPage;
-                    break;
-            }
+                    case PageOptions.OUTPUT_PAGE:
+                        outputPage.Dispose();
+                        outputPage = new OutputPage (OnPageChange);
+                        outputPage.ConvertWavToBytes(sendersMessage);
+                        Content = outputPage;
+                        break;
+                }
         }
 
         /// <summary>
