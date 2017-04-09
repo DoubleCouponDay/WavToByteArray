@@ -52,7 +52,7 @@ namespace WAV2ByteArray
         /// 
         /// </summary>
         /// <param name="ClickFindAddress">The handler which will trigger upon the buttons supression.</param>
-        public Button CreateNewFindButton (RoutedEventHandler newButtonsEvent, string buttonsContent)
+        public Button CreateNewFindButton (RoutedEventHandler newButtonsEvent, object buttonsContent)
         {
             Button newAddressButton = new Button();
             newAddressButton.VerticalAlignment = verticalAlignment;

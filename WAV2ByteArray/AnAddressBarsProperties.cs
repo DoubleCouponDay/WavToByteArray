@@ -34,7 +34,7 @@ namespace WAV2ByteArray
         /// </summary>
         /// <param name="barsContent">The content which the bar will display</param>
         /// <returns></returns>
-        public ListBoxItem CreateNewAddressBar (string barsContent)
+        public ListBoxItem CreateNewAddressBar (object barsContent)
         {
             ListBoxItem newAddressBar = new ListBoxItem();
             newAddressBar.BorderBrush = BorderBrush;

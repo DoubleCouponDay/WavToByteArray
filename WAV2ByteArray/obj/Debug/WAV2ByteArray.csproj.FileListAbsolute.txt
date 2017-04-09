@@ -17,8 +17,6 @@ C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\De
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WAV2ByteArray.exe.config
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WAV2ByteArray.exe
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WAV2ByteArray.pdb
-C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WpfAnimatedGif.dll
-C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\WpfAnimatedGif.xml
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\MainWindow.g.cs
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\OutputPage.g.cs
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\UserInputPage.g.cs
@@ -45,3 +43,4 @@ C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\De
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.exe.manifest
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.application
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\bin\Debug\XamlAnimatedGif.dll
+C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\XamlAnimatedGif.dll

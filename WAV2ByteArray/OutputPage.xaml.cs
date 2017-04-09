@@ -88,26 +88,25 @@ namespace WAV2ByteArray
                     if (File.Exists (fileAddresses[i])) //niceway of checking if user placed an item in that box.
                     {
                         byte[] currentBytes = File.ReadAllBytes (fileAddresses[i]);
-                        StringBuilder serialBytes = new StringBuilder(); //Optimized for concatanating massive strings.
+                        StringBuilder timeWaster = new StringBuilder(); //just so i can see the animated cat =^.^=
 
                         for (int x = 0; x < currentBytes.Length; x++)
                         {
-                            serialBytes.Append (", ");
-                            serialBytes.Append (currentBytes[x]);                            
+                            timeWaster.Append (currentBytes[x]);
+                            timeWaster.Append (", ");
                         }
-                        string builderConverted = serialBytes.ToString();
+                        string fatty = timeWaster.ToString();
+                        timeWaster.Clear();
 
                         Dispatcher.Invoke (() => { //needed in order to command the User Interface thread from the process thread.
-                            musicPlayer.WriteStream (currentBytes);
-
                             if (i == default (int))
                             {
-                                AddressBar_1.Content = builderConverted;
+                                AddressBar_1.Content = currentBytes;
                             }
 
                             else
                             {   
-                                NewMatchingPair (builderConverted, ToClipboardClick);                             
+                                NewMatchingPair (currentBytes, ToClipboardClick);                             
                             }                    
                         });                                                                         
                     }
@@ -127,54 +126,62 @@ namespace WAV2ByteArray
             });
         }
 
-        private void NewMatchingPair (string barsContent, RoutedEventHandler buttonsEvent)
+        private void NewMatchingPair (object barsContent, RoutedEventHandler buttonsEvent)
         {
             ListBoxItem newAddressBar = m_barProperties.CreateNewAddressBar (barsContent);
             ByteArrayList.Items.Add (newAddressBar);
 
-            Button newClipboardButton = m_buttonProperties.CreateNewFindButton (buttonsEvent, ClipboardButton_1.Content.ToString());
+            Button newClipboardButton = m_buttonProperties.CreateNewFindButton (buttonsEvent, ClipboardButton_1.Content);
             OutputPageGrid.Children.Add (newClipboardButton);
         }
 
         private void ToClipboardClick (object sender, RoutedEventArgs e)
         {
-            try
-            {
-                musicPlayer.PlayStream();
-            }
-
-            catch (Exception failed)
-            {
-                MessageBox.Show (failed.ToString());
-                throw;
-            }
             Button trigger = e.Source as Button;
 
             if (trigger != null)
-            {
+            {            
                 List <FrameworkElement> matchList = m_buttonProperties.GetAllWithMatchingRanks (trigger);
 
                 if (matchList.Count != default (int))
                 {
                     foreach (ListBoxItem triggersPair in matchList.OfType <ListBoxItem>())
-                    {   
-                        Clipboard.SetText (triggersPair.Content.ToString());                                                                                     
+                    {                                                                                                              
                         string[] dividedName = trigger.Name.Split (m_barProperties.NAME_RANKS_SEPARATOR); //dont do this to triggersPair.Content! You dont have enough memory :']       
                         string outcomeMessage = default (string);        
 
-                        if (dividedName.Length >= m_barProperties.RANKS_SPLIT_INDEX + 1)
+                        if (triggersPair.Content != null &&
+                            triggersPair.Content.ToString() != m_barProperties.Content)
                         {
-                            string boxesRank  = dividedName[m_barProperties.RANKS_SPLIT_INDEX];          
-                            outcomeMessage = "Copied output " + boxesRank + " to clipboard.";
-                        }
+                            Clipboard.Clear();
+                            Clipboard.SetText (triggersPair.Content.ToString());  
 
-                        else
-                        {
-                            outcomeMessage = "Copied output to clipboard";
+                            if (dividedName.Length >= m_barProperties.RANKS_SPLIT_INDEX + 1)
+                            {
+                                string boxesRank  = dividedName[m_barProperties.RANKS_SPLIT_INDEX];          
+                                outcomeMessage = "Copied output " + boxesRank + " to clipboard.";
+                            }
+
+                            else
+                            {
+                                outcomeMessage = "Copied output to clipboard";
+                            }
+                            byte[] possibleByteConversion = triggersPair.Content as byte[];
+
+                            if (possibleByteConversion != null)
+                            {
+                                musicPlayer.WriteStream (possibleByteConversion);
+                                musicPlayer.PlayStream();                                                           
+                            }   
+                            MessageBox.Show (outcomeMessage);  
+                        
+                            try
+                            {                                                             
+                                musicPlayer.StopPlaying();
+                            }
+                            catch { }
                         }
-                        MessageBoxResult promptsReturn = MessageBox.Show (outcomeMessage);
-                        musicPlayer.StopPlaying();                                                
-                        break;
+                        break; //Assuming there is only one same rank button as the listboxitem
                     }
                 }
                     
@@ -182,7 +189,7 @@ namespace WAV2ByteArray
                 {
                     MessageBox.Show (ErrorMessages.UNKNOWN);
                 }              
-            }
+            }   
         }
 
         private void PreviousPageClick (object sender, RoutedEventArgs e)
