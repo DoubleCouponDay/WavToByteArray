@@ -80,9 +80,7 @@ namespace WAV2ByteArray
         /// <param name="fileAddresses"></param>
         private async void DisplayFilesAsynchronously (string[] fileAddresses)
         {
-            await taskFactory.StartNew (() => {
-                var taskCanceller = new CancellationTokenSource();
-
+            await Task.Run (() => {
                 for (int i = 0; i < fileAddresses.Length; i++)
                 {
                     if (File.Exists (fileAddresses[i])) //niceway of checking if user placed an item in that box.
