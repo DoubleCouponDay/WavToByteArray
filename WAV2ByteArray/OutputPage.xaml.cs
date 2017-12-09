@@ -29,6 +29,7 @@ namespace WAV2ByteArray
     public partial class OutputPage : Page, IDisposable
     {
         private PlayerTest musicPlayer;
+
         private TaskFactory taskFactory;
         private CancellationTokenSource cancelTokenSignaller;
         private CancellationToken taskCanceller;
@@ -49,7 +50,7 @@ namespace WAV2ByteArray
             cancelTokenSignaller = new CancellationTokenSource();
             taskCanceller = cancelTokenSignaller.Token;
             taskFactory = new TaskFactory (taskCanceller);
-            cancelTokenSignaller.Dispose();
+            
         }
 
         /// <summary>

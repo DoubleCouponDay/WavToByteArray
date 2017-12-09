@@ -15,13 +15,11 @@ using System.Windows.Shapes;
 
 namespace WAV2ByteArray
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private UserInputPage inputPage;
         private OutputPage outputPage;
+        private bool disposed;
 
         public MainWindow()
         {
@@ -40,10 +38,9 @@ namespace WAV2ByteArray
                         break;
 
                     case PageOptions.OUTPUT_PAGE:
+                        outputPage.OutputPageGrid.Children.Clear();       
                         outputPage.Dispose();
-                        outputPage.OutputPageGrid.Children.Clear();                        
                         outputPage = new OutputPage (OnPageChange);
-                        GC.Collect();
                         outputPage.ConvertWavToBytes(sendersMessage);
                         Content = outputPage;
                         break;
@@ -56,6 +53,15 @@ namespace WAV2ByteArray
         /// </summary>
         /// <param name="pageToView"></param>
         /// <param name="sendersMessage"></param>
-        public delegate void PageChangeDelegate (PageOptions pageToView, string[] sendersMessage); 
+        public delegate void PageChangeDelegate(PageOptions pageToView,string[] sendersMessage); 
+
+        ~MainWindow()
+        {
+            if(disposed == false)
+            {
+                outputPage.Dispose();
+                disposed = true;
+            } 
+        }
     }
 }
