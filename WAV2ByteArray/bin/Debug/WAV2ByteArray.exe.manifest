@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WAV2ByteArray.exe" size="490464">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WAV2ByteArray.exe" size="490976">
       <assemblyIdentity name="WAV2ByteArray" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>oGU0sBn0albv5kTDQTevdU4+r3mJf2PF7IN0uLw7LYU=</dsig:DigestValue>
+        <dsig:DigestValue>0nGcynudKeW0evkZKgkAVu7JkOFHaZvPbk3lOx8GGN4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -44,3 +44,4 @@ C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\De
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.application
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\bin\Debug\XamlAnimatedGif.dll
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\bin\Debug\XamlAnimatedGif.dll
+C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.csproj.CoreCompileInputs.cache

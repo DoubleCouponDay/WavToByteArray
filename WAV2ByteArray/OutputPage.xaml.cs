@@ -87,19 +87,11 @@ namespace WAV2ByteArray
                     if (File.Exists (fileAddresses[i])) //niceway of checking if user placed an item in that box.
                     {
                         byte[] currentBytes = File.ReadAllBytes (fileAddresses[i]);
-                        StringBuilder timeWaster = new StringBuilder(); //just so i can see the animated cat =^.^=
-
-                        for (int x = 0; x < currentBytes.Length; x++)
-                        {
-                            timeWaster.Append (currentBytes[x]);
-                            timeWaster.Append (", ");
-                        }
-                        string fatty = timeWaster.ToString();
-                        timeWaster.Clear();
 
                         Dispatcher.Invoke (() => { //needed in order to command the User Interface thread from the process thread.
                             if (i == default (int))
                             {
+                                //AddressBar_1.Content = string.Join(" ", currentBytes);
                                 AddressBar_1.Content = currentBytes;
                             }
 
@@ -145,34 +137,52 @@ namespace WAV2ByteArray
                 if (matchList.Count != default (int))
                 {
                     foreach (ListBoxItem triggersPair in matchList.OfType <ListBoxItem>())
-                    {                                                                                                              
-                        string[] dividedName = trigger.Name.Split (m_barProperties.NAME_RANKS_SEPARATOR); //dont do this to triggersPair.Content! You dont have enough memory :']       
+                    {                                                                                                                                      
                         string outcomeMessage = default (string);        
 
                         if (triggersPair.Content != null &&
                             triggersPair.Content.ToString() != m_barProperties.Content)
                         {
-                            Clipboard.Clear();
-                            Clipboard.SetText (triggersPair.Content.ToString());  
-
-                            if (dividedName.Length >= m_barProperties.RANKS_SPLIT_INDEX + 1)
+                            try
                             {
-                                string boxesRank  = dividedName[m_barProperties.RANKS_SPLIT_INDEX];          
-                                outcomeMessage = "Copied output " + boxesRank + " to clipboard.";
+                                Clipboard.Clear(); 
                             }
 
+                            catch{ }
+
+                            if (triggersPair.Content as byte[] != null)
+                            {
+                                string[] dividedName = trigger.Name.Split (m_barProperties.NAME_RANKS_SEPARATOR); //dont do this to triggersPair.Content! You dont have enough memory :']       
+
+                                if (trigger.Name.Length >= m_barProperties.RANKS_SPLIT_INDEX + 1)
+                                {
+                                    string boxesRank  = dividedName[m_barProperties.RANKS_SPLIT_INDEX];          
+                                    outcomeMessage = "Copied output " + boxesRank + " to clipboard.";
+                                }
+
+                                else
+                                {
+                                    outcomeMessage = "Copied output to clipboard";
+                                }
+
+                                var bytes = (byte[])triggersPair.Content;
+                                var fullCircleBytes = String.Join(" ", bytes);
+
+                                try
+                                {
+                                    Clipboard.SetText(fullCircleBytes);
+                                }
+
+                                catch {}                                
+                                MessageBox.Show (outcomeMessage);  
+                                musicPlayer.WriteStream (bytes);
+                                musicPlayer.PlayStream();                                                                                           
+                            } 
+                            
                             else
                             {
-                                outcomeMessage = "Copied output to clipboard";
+                                MessageBox.Show(ErrorMessages.UNKNOWN);
                             }
-                            byte[] possibleByteConversion = triggersPair.Content as byte[];
-
-                            if (possibleByteConversion != null)
-                            {
-                                musicPlayer.WriteStream (possibleByteConversion);
-                                musicPlayer.PlayStream();                                                           
-                            }   
-                            MessageBox.Show (outcomeMessage);  
                         
                             try
                             {                                                             
