@@ -18,12 +18,13 @@ using System.Windows.Shapes;
 using System.Media;
 using System.Threading;
 
-using WpfAnimatedGif;
+using XamlAnimatedGif;
 
 namespace WAV2ByteArray
 {
     /// <summary>
-    /// Interaction logic for OutputPage.xaml
+    /// Interaction logic for OutputPage.xaml.
+    /// Dispose() before deleting reference.
     /// </summary>
     public partial class OutputPage : Page, IDisposable
     {
@@ -35,12 +36,15 @@ namespace WAV2ByteArray
         private AnAddressBarsProperties m_barProperties;
         private StandardButtonProperties m_buttonProperties;
 
+        private MainWindow.PageChangeDelegate heldForUnsubscribing;
+
         public OutputPage (MainWindow.PageChangeDelegate pageChangeSubscriber)
         {
             InitializeComponent();
             m_barProperties = new AnAddressBarsProperties (OutputPageGrid);            
             m_buttonProperties = new StandardButtonProperties (OutputPageGrid, "ClipboardButton", "To Clipboard");
             ToSquareOne += pageChangeSubscriber; 
+            heldForUnsubscribing = pageChangeSubscriber;
             musicPlayer = new PlayerTest();
             cancelTokenSignaller = new CancellationTokenSource();
             taskCanceller = cancelTokenSignaller.Token;
@@ -58,9 +62,9 @@ namespace WAV2ByteArray
             if (fileAddresses != null)
             {
                 Title.Content = "LOADING...";
-                CatGif.Visibility = Visibility.Visible;
-                ImageBehavior.SetAutoStart (CatGif, true);
-                ImageBehavior.SetRepeatBehavior (CatGif, RepeatBehavior.Forever);
+                CatGif.Visibility = Visibility.Visible;                
+                AnimationBehavior.SetAutoStart (CatGif, true);
+                AnimationBehavior.SetRepeatBehavior (CatGif, RepeatBehavior.Forever);
                 Parallel.Invoke (() => DisplayFilesAsynchronously (fileAddresses));           
             }
 
@@ -189,6 +193,7 @@ namespace WAV2ByteArray
         public void Dispose()
         {
             cancelTokenSignaller.Dispose();
+            ToSquareOne -= heldForUnsubscribing;
         }
 
         public event MainWindow.PageChangeDelegate ToSquareOne;

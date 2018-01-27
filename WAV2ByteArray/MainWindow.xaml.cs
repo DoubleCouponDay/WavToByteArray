@@ -41,7 +41,9 @@ namespace WAV2ByteArray
 
                     case PageOptions.OUTPUT_PAGE:
                         outputPage.Dispose();
+                        outputPage.OutputPageGrid.Children.Clear();                        
                         outputPage = new OutputPage (OnPageChange);
+                        GC.Collect();
                         outputPage.ConvertWavToBytes(sendersMessage);
                         Content = outputPage;
                         break;

@@ -49,19 +49,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9EpBQfcOUNmECPXxlIOHI/mWEhLe1qjrue/S79glgis=</dsig:DigestValue>
+        <dsig:DigestValue>3BYOKY4Phf28FgSMsQBbLzNrLSrnY0CJxaufv2Rxa4c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WpfAnimatedGif.dll" size="39936">
-      <assemblyIdentity name="WpfAnimatedGif" version="1.4.14.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="XamlAnimatedGif.dll" size="87552">
+      <assemblyIdentity name="XamlAnimatedGif" version="1.1.6.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>RhBb5sbZUOuvLtgSX8bl9tho3vXKGg9/Skygc+xuCh8=</dsig:DigestValue>
+        <dsig:DigestValue>v/I0mNFu92FvHCv8+KlnRTCpcJhnPFAFBAlBuu0MuAk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

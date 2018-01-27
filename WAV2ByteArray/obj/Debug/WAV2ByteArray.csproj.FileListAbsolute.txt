@@ -40,9 +40,8 @@ C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteA
 C:\Users\power\Desktop\scripting\Wav2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.csprojResolveAssemblyReference.cache
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\bin\Debug\WAV2ByteArray.exe.manifest
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\bin\Debug\WAV2ByteArray.application
-C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\bin\Debug\WpfAnimatedGif.dll
-C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\bin\Debug\WpfAnimatedGif.xml
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\OutputPage.g.cs
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\OutputPage.baml
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.exe.manifest
 C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\obj\Debug\WAV2ByteArray.application
+C:\Users\sjsui\Desktop\Workshop\WAV2ByteArray\WAV2ByteArray\WAV2ByteArray\bin\Debug\XamlAnimatedGif.dll
